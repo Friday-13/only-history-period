@@ -1,3 +1,4 @@
+import { Divider } from "./divider";
 import { YearPeriod } from "./year-period";
 
 export const HistoricalDates = () => {
@@ -9,6 +10,7 @@ export const HistoricalDates = () => {
         даты
       </h2>
       <YearPeriod start={2015} end={2022} />
+      <Divider />
     </section>
   );
 };
