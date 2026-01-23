@@ -1,5 +1,6 @@
 @use "./reset.module";
 @use "./fonts";
+@use "./breakpoints.module";
 
 :root {
   font-family: "PT Sans", sans-serif;
@@ -42,14 +43,25 @@ h1 {
 }
 
 h2 {
+  margin-bottom: 56px;
   font-size: 20px;
   font-weight: 700;
+
+  @include breakpoints.lg {
+    font-size: 56px;
+  }
 }
 
 h3 {
-  font-size: 56px;
+  font-size: 58px;
   font-weight: 700;
   color: #3877ee;
+  letter-spacing: -0.02em;
+
+  @include breakpoints.lg {
+    font-size: 200px;
+    text-align: center;
+  }
 }
 
 h4 {

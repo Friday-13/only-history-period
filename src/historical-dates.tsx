@@ -1,3 +1,5 @@
+import { YearPeriod } from "./year-period";
+
 export const HistoricalDates = () => {
   return (
     <section>
@@ -6,6 +8,7 @@ export const HistoricalDates = () => {
         <br />
         даты
       </h2>
+      <YearPeriod start={2015} end={2022} />
     </section>
   );
 };
