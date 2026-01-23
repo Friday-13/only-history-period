@@ -24,6 +24,8 @@ body {
 
   line-height: 1.5;
   color: #42567a;
+
+  background-color: #f4f5f9;
 }
 
 h1,
@@ -40,7 +42,7 @@ h1 {
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -62,4 +64,8 @@ a {
 
 img {
   width: 100%;
+}
+
+section {
+  padding: 59px 20px 10px;
 }
