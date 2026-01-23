@@ -11,7 +11,7 @@ const stylesHandler = isProduction
   : "style-loader";
 
 const config = {
-  entry: "./src/index.tsx",
+  entry: "./src/main.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
   },
@@ -34,10 +34,10 @@ const config = {
         loader: "ts-loader",
         exclude: ["/node_modules/"],
       },
-      // {
-      //   test: /\.css$/i,
-      //   use: [stylesHandler, "css-loader"],
-      // },
+      {
+        test: /\.css$/i,
+        use: [stylesHandler, "css-loader"],
+      },
       // {
       //   test: /\.s[ac]ss$/i,
       //   use: [stylesHandler, "css-loader", "sass-loader"],

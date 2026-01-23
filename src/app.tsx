@@ -1,7 +1,12 @@
-const App = () => {
+export const App = () => {
   return (
     <>
-      <h1>React + Webpack + TypeScript</h1>
+      <h2>
+        Исторические
+        <br />
+        даты
+      </h2>
+      <a href="">Hehehe</a>
     </>
   );
 };
