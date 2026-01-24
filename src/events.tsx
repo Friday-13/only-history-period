@@ -11,7 +11,13 @@ interface IEvent {
 
 export const Events = ({ events }: { events: IEvent[] }) => {
   return (
-    <Swiper spaceBetween={25} slidesPerView={1.6} watchSlidesProgress={true}>
+    <Swiper
+      spaceBetween={20}
+      slidesPerView={1.6}
+      watchSlidesProgress={true}
+      slidesOffsetBefore={20}
+      slidesOffsetAfter={20}
+    >
       <SwiperSlide>
         <div className={styles.event}>
           <h4>{events[0].year}</h4>
