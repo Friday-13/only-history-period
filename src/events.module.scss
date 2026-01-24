@@ -7,3 +7,11 @@
     line-height: 1.45;
   }
 }
+
+:global(.swiper-slide-visible) {
+  opacity: 0.4;
+}
+
+:global(.swiper-slide-fully-visible) {
+  opacity: 1;
+}

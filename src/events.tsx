@@ -1,7 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/pagination";
 
 import styles from "./events.module.scss";
+
 interface IEvent {
   year: number;
   data: string;
@@ -9,12 +11,7 @@ interface IEvent {
 
 export const Events = ({ events }: { events: IEvent[] }) => {
   return (
-    <Swiper
-      spaceBetween={25}
-      slidesPerView={2}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
+    <Swiper spaceBetween={25} slidesPerView={1.6} watchSlidesProgress={true}>
       <SwiperSlide>
         <div className={styles.event}>
           <h4>{events[0].year}</h4>
