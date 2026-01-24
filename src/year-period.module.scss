@@ -1,0 +1,18 @@
+@use "./breakpoints.module";
+
+.year {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 60px;
+
+  @include breakpoints.xl {
+    gap: 50px;
+    font-size: 200px;
+    text-align: center;
+  }
+
+  :last-child {
+    color: #f178b6;
+  }
+}

@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format:fix": "prettier --write .",
-    "style:fix": "stylelint --fix \"**/*.scss\""
+    "style:fix": "stylelint --fix \"**/*.scss\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@feature-sliced/cli": "^1.0.0",
@@ -33,6 +34,7 @@
     "globals": "^16.3.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.6",
+    "husky": "^9.1.7",
     "mini-css-extract-plugin": "^2.10.0",
     "prettier": "^3.6.2",
     "sass": "^1.97.3",
