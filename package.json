@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format:fix": "prettier --write .",
-    "style:fix": "stylelint --fix \"**/*.scss\""
+    "style:fix": "stylelint --fix \"**/*.scss\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@feature-sliced/cli": "^1.0.0",
