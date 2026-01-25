@@ -1,10 +1,11 @@
 import { Divider } from "./divider";
 import { Events } from "./events";
+import { PeriodCarousel } from "./period-carousel/period-carousel";
 import { YearPeriod } from "./year-period";
 
 export const HistoricalDates = () => {
   return (
-    <section>
+    <section style={{position: "relative"}}>
       <h2>
         Исторические
         <br />
@@ -24,6 +25,7 @@ export const HistoricalDates = () => {
           },
         ]}
       />
+      <PeriodCarousel />
     </section>
   );
 };

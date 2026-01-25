@@ -1,0 +1,21 @@
+.carousel-trajectory {
+  opacity: 0.2;
+
+  fill: none;
+  stroke: #42567A;
+  stroke-miterlimit: 1;
+  stroke-width: 1;
+
+  &__wrapper {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    overflow: visible;
+
+    width: 300px;
+    height: 300px;
+  }
+}

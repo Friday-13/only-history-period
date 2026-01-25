@@ -1,0 +1,27 @@
+.carousel {
+  &__wrapper {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+  }
+
+  &__item {
+    position: absolute;
+    transform: scale(0);
+
+    width: 56px;
+    height: 56px;
+    border: 1px solid #303e5850;
+    border-radius: 50%;
+
+    line-height: 56px;
+    text-align: center;
+
+    background-color: #f4f5f9;
+
+    &_active {
+    transform: scale(1);
+    }
+  }
+}
