@@ -12,6 +12,10 @@
   text-rendering: optimizelegibility;
 
   font-synthesis: none;
+
+  @include breakpoints.lg {
+    font-size: 20px;
+  }
 }
 
 * {
@@ -44,12 +48,16 @@ h1 {
 
 h2 {
   margin-bottom: 56px;
-  padding-left: 20px;
   padding-top: 59px;
+  padding-left: 20px;
+
   font-size: 20px;
   font-weight: 700;
 
   @include breakpoints.lg {
+    margin-bottom: 50px;
+    padding-top: 145px;
+    padding-left: 60px;
     font-size: 56px;
   }
 }
@@ -72,6 +80,10 @@ h4 {
   font-weight: 400;
   color: #3877ee;
   text-transform: uppercase;
+
+  @include breakpoints.lg {
+    font-size: 25px;
+  }
 }
 
 a {
@@ -82,3 +94,12 @@ img {
   width: 100%;
 }
 
+section {
+  max-width: 1440px;
+
+  @include breakpoints.lg {
+    margin: 0 auto 0 320px;
+    padding: 20px;
+    border: 1px solid #42567a;
+  }
+}
