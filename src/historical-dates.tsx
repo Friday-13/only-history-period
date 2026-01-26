@@ -5,7 +5,7 @@ import { YearPeriod } from "./year-period";
 
 export const HistoricalDates = () => {
   return (
-    <section style={{position: "relative"}}>
+    <section style={{ position: "relative" }}>
       <h2>
         Исторические
         <br />
@@ -25,7 +25,7 @@ export const HistoricalDates = () => {
           },
         ]}
       />
-      <PeriodCarousel />
+      <PeriodCarousel items={["1", "2", "3", "4", "5", "6"]} />
     </section>
   );
 };
