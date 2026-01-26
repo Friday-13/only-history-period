@@ -34,7 +34,6 @@ interface IPeriodCarousel {
 
 export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
   const carouselWrapper = useRef<HTMLDivElement | null>(null);
-  const carouselItemRefs = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const circlePathRef = useCirclePath({
@@ -78,21 +77,30 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
   return (
     <div className={styles.carouselWrapper} ref={carouselWrapper}>
       {items.map((item, ind) => {
+        const tl = gsap.timeline({ paused: true });
         const carouselItem = (
           <div
             key={ind}
             className={classNames(styles.carouselItem, {
               [styles.carouselItemActive]: ind === activeIndex,
             })}
-            ref={carouselItemRefs}
+            ref={(el) => {
+              if (!el) return;
+              tl.to(el, {
+                scale: 1,
+                backgroundColor: "#f4f5f9",
+                duration: 0.3,
+                // ease: "back",
+              });
+            }}
             data-carousel-item
             onClick={() => {
               const diff = activeIndex - ind;
-              const itemStep = 1 / 6;
-              if (Math.abs(diff) < 6 / 2) {
+              const itemStep = 1 / items.length;
+              if (Math.abs(diff) < items.length / 2) {
                 moveCarousel(diff * itemStep);
               } else {
-                const amt = 6 - Math.abs(diff);
+                const amt = items.length - Math.abs(diff);
 
                 if (activeIndex > ind) {
                   moveCarousel(amt * -itemStep);
@@ -102,6 +110,8 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
               }
               setActiveIndex(ind);
             }}
+            onMouseEnter={() => tl.play()}
+            onMouseOut={() => tl.reverse()}
           >
             {item}
           </div>

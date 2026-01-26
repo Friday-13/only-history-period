@@ -15,7 +15,8 @@ export const initCarouseItemPosition = (
       alignOrigin: [0.5, 0.5],
       end: (i) => (i - 1) / carouselItems.length,
     },
-    scale: 1,
+    scale: 0.2,
+    backgroundColor: "#42567a",
   });
 };
 
@@ -40,3 +41,5 @@ export const setCarouselItemsMotion = (items: NodeListOf<HTMLDivElement>) => {
     0,
   );
 };
+
+
