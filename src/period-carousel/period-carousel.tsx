@@ -1,21 +1,9 @@
 import gsap from "gsap";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import styles from "./period-carousel.module.scss";
 import { useGSAP } from "@gsap/react";
-import { RefObject, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import classNames from "classnames";
-
-const createPath = (svgRef: RefObject<SVGSVGElement | null>) => {
-  if (!svgRef.current) return;
-
-  gsap.registerPlugin(MotionPathPlugin);
-  const paths = MotionPathPlugin.convertToPath("#holder", false);
-  if (!paths.length) return;
-  const circlePath = paths[0] as SVGPathElement;
-  circlePath.id = "circlePath";
-  svgRef.current.prepend(circlePath);
-  return circlePath;
-};
+import { useCirclePath } from "./use-circle-path";
 
 const wrapProgress = gsap.utils.wrap(0, 1);
 const snap = gsap.utils.snap(1 / 6);
@@ -43,9 +31,13 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
   const carouselItemRefs = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const circlePathRef = useCirclePath({
+    svgRef,
+    options: { pathId: "circlePath", sourceId: "holder" },
+  });
 
   useGSAP(() => {
-    const circlePath = createPath(svgRef);
+    if (!circlePathRef.current) return;
     if (!carouselWrapper) return;
 
     const carouselItems =
@@ -57,8 +49,8 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
 
     gsap.set(carouselItems, {
       motionPath: {
-        path: circlePath,
-        align: circlePath,
+        path: circlePathRef.current,
+        align: circlePathRef.current,
         alignOrigin: [0.5, 0.5],
         end: (i) => i / items.length,
       },
