@@ -1,21 +1,27 @@
 import gsap from "gsap";
 import styles from "./period-carousel.module.scss";
 import { useGSAP } from "@gsap/react";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import classNames from "classnames";
 import { useCirclePath } from "./use-circle-path";
+import { getcarouselItems } from "./period-carousel.dom";
+import {
+  initCarouseItemPosition,
+  setCarouselItemsMotion,
+  setCarouselMotion,
+  timeLine,
+} from "./carousel-motion";
 
 const wrapProgress = gsap.utils.wrap(0, 1);
 const snap = gsap.utils.snap(1 / 6);
 
-const timeLine = gsap.timeline({ paused: true, reversed: true });
-const moveWheel = (amount: number) => {
+const moveCarousel = (step: number) => {
   const progress = timeLine.progress();
-  timeLine.progress(wrapProgress(snap(timeLine.progress() + amount)));
+  timeLine.progress(wrapProgress(snap(timeLine.progress() + step)));
   timeLine.progress(progress);
 
   gsap.to(timeLine, {
-    progress: snap(timeLine.progress() + amount),
+    progress: snap(timeLine.progress() + step),
     modifiers: {
       progress: wrapProgress,
     },
@@ -37,60 +43,36 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
   });
 
   useGSAP(() => {
-    if (!circlePathRef.current) return;
-    if (!carouselWrapper) return;
-
-    const carouselItems =
-      carouselWrapper.current?.querySelectorAll<HTMLDivElement>(
-        "[data-carousel-item]",
-      );
+    if (!carouselWrapper.current) return;
+    const carouselItems = getcarouselItems(
+      carouselWrapper.current,
+      "[data-carousel-item]",
+    );
 
     if (!carouselItems) return;
+    if (!circlePathRef.current) return;
+    initCarouseItemPosition(carouselItems, circlePathRef.current);
 
-    gsap.set(carouselItems, {
-      motionPath: {
-        path: circlePathRef.current,
-        align: circlePathRef.current,
-        alignOrigin: [0.5, 0.5],
-        end: (i) => i / items.length,
-      },
-      scale: 0.9,
-    });
+    setCarouselMotion(carouselWrapper.current);
+    setCarouselItemsMotion(carouselItems);
 
-    timeLine.to(carouselWrapper.current, {
-      rotation: 360,
-      transformOrigin: "center",
-      duration: 5,
-      ease: "none",
-    });
-
-    timeLine.to(
-      carouselItems,
-      {
-        rotation: "-=360",
-        transformOrigin: "center",
-        duration: 5,
-        ease: "none",
-      },
-      0,
-    );
-
-    const wrapTracker = gsap.utils.wrap(0, items.length);
-    const tracker = { item: 0 };
-    timeLine.to(
-      tracker,
-      {
-        item: items.length,
-        duration: 5,
-        ease: "none",
-        modifiers: {
-          item(value) {
-            return wrapTracker(items.length - Math.round(value));
-          },
-        },
-      },
-      0,
-    );
+    // const wrapTracker = gsap.utils.wrap(0, items.length);
+    // const tracker = { item: activeIndex };
+    //
+    // timeLine.to(
+    //   tracker,
+    //   {
+    //     item: items.length,
+    //     duration: 5,
+    //     ease: "none",
+    //     modifiers: {
+    //       item(value) {
+    //         return wrapTracker(items.length - Math.round(value));
+    //       },
+    //     },
+    //   },
+    //   0,
+    // );
   });
 
   return (
@@ -108,14 +90,14 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
               const diff = activeIndex - ind;
               const itemStep = 1 / 6;
               if (Math.abs(diff) < 6 / 2) {
-                moveWheel(diff * itemStep);
+                moveCarousel(diff * itemStep);
               } else {
                 const amt = 6 - Math.abs(diff);
 
                 if (activeIndex > ind) {
-                  moveWheel(amt * -itemStep);
+                  moveCarousel(amt * -itemStep);
                 } else {
-                  moveWheel(amt * itemStep);
+                  moveCarousel(amt * itemStep);
                 }
               }
               setActiveIndex(ind);

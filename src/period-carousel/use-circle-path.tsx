@@ -2,6 +2,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { RefObject, useRef } from "react";
+import { getExistingPath, getSource } from "./period-carousel.dom";
 
 interface ICirclePathOptions {
   sourceId: string;
@@ -14,14 +15,6 @@ interface IUseCirclePath {
 }
 
 gsap.registerPlugin(MotionPathPlugin);
-
-const getExistingPath = (svg: SVGSVGElement, pathId: string) => {
-  return svg.querySelector<SVGPathElement>(`#${pathId}`);
-};
-
-const getSource = (svg: SVGSVGElement, sourceId: string) => {
-  return svg.querySelector<SVGGraphicsElement>(`#${sourceId}`);
-};
 
 const createPath = ({ sourceId, pathId }: ICirclePathOptions) => {
   const [path] = MotionPathPlugin.convertToPath(`#${sourceId}`, false);
