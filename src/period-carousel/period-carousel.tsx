@@ -17,6 +17,23 @@ const createPath = (svgRef: RefObject<SVGSVGElement | null>) => {
   return circlePath;
 };
 
+const wrapProgress = gsap.utils.wrap(0, 1);
+const snap = gsap.utils.snap(1 / 6);
+
+const timeLine = gsap.timeline({ paused: true, reversed: true });
+const moveWheel = (amount: number) => {
+  const progress = timeLine.progress();
+  timeLine.progress(wrapProgress(snap(timeLine.progress() + amount)));
+  timeLine.progress(progress);
+
+  gsap.to(timeLine, {
+    progress: snap(timeLine.progress() + amount),
+    modifiers: {
+      progress: wrapProgress,
+    },
+  });
+};
+
 interface IPeriodCarousel {
   items: string[];
 }
@@ -48,27 +65,40 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
       scale: 0.9,
     });
 
-    const timeLine = gsap.timeline({ paused: true, reversed: true });
-
-    timeLine.to(carouselItems, {
-      rotation: "-=360",
-      transformOrigin: "center",
-      duration: 30,
-      ease: "none",
-    });
-
     timeLine.to(carouselWrapper.current, {
       rotation: 360,
       transformOrigin: "center",
-      duration: 30,
+      duration: 5,
       ease: "none",
     });
-    // gsap.to(carouselItem.current, {
-    //   rotation: "-=360",
-    //   transformOrigin: "center",
-    //   duration: 30,
-    //   ease: "none",
-    // });
+
+    timeLine.to(
+      carouselItems,
+      {
+        rotation: "-=360",
+        transformOrigin: "center",
+        duration: 5,
+        ease: "none",
+      },
+      0,
+    );
+
+    const wrapTracker = gsap.utils.wrap(0, items.length);
+    const tracker = { item: 0 };
+    timeLine.to(
+      tracker,
+      {
+        item: items.length,
+        duration: 5,
+        ease: "none",
+        modifiers: {
+          item(value) {
+            return wrapTracker(items.length - Math.round(value));
+          },
+        },
+      },
+      0,
+    );
   });
 
   return (
@@ -82,7 +112,22 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
             })}
             ref={carouselItemRefs}
             data-carousel-item
-            onClick={() => setActiveIndex(ind)}
+            onClick={() => {
+              const diff = activeIndex - ind;
+              const itemStep = 1 / 6;
+              if (Math.abs(diff) < 6 / 2) {
+                moveWheel(diff * itemStep);
+              } else {
+                const amt = 6 - Math.abs(diff);
+
+                if (activeIndex > ind) {
+                  moveWheel(amt * -itemStep);
+                } else {
+                  moveWheel(amt * itemStep);
+                }
+              }
+              setActiveIndex(ind);
+            }}
           >
             {item}
           </div>
