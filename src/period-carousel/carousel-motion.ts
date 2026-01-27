@@ -24,15 +24,17 @@ export class CarouselMotion {
   }
 
   private initCarouseItemPosition() {
+    const offset = -1/ 6;
     gsap.set(this.items, {
       motionPath: {
         path: this.path,
         align: this.path,
         alignOrigin: [0.5, 0.5],
-        end: (i) => (i - 1) / this.length,
+        start: offset,
+        end: (i) => offset + i / this.length,
       },
-      scale: 0.2,
-      backgroundColor: "#42567a",
+      // scale: 0.2,
+      // backgroundColor: "#42567a",
     });
   }
 
@@ -75,5 +77,25 @@ export class CarouselMotion {
         progress: this.wrapProgress,
       },
     });
+  }
+
+  getShortestArc(diff: number) {
+    const itemStep = 1 / this.length;
+    if (Math.abs(diff) < this.length / 2) {
+      return diff * itemStep;
+    }
+    const amt = this.length - Math.abs(diff);
+
+    if (diff > 0) {
+      return amt * -itemStep;
+    } else {
+      return amt * itemStep;
+    }
+  }
+
+  moveToIndex(index: number, currentIndex: number) {
+    const diff = currentIndex - index;
+    const step = this.getShortestArc(diff);
+    this.moveCarousel(step);
   }
 }

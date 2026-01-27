@@ -56,19 +56,7 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
             }}
             data-carousel-item
             onClick={() => {
-              const diff = activeIndex - ind;
-              const itemStep = 1 / items.length;
-              if (Math.abs(diff) < items.length / 2) {
-                carouselMotion.current?.moveCarousel(diff * itemStep);
-              } else {
-                const amt = items.length - Math.abs(diff);
-
-                if (activeIndex > ind) {
-                  carouselMotion.current?.moveCarousel(amt * -itemStep);
-                } else {
-                  carouselMotion.current?.moveCarousel(amt * itemStep);
-                }
-              }
+              carouselMotion.current?.moveToIndex(ind, activeIndex);
               setActiveIndex(ind);
             }}
             onMouseEnter={() => tl.play()}
