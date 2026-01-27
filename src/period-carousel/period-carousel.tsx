@@ -1,6 +1,6 @@
 import styles from "./period-carousel.module.scss";
 import { useGSAP } from "@gsap/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useCirclePath } from "./use-circle-path";
 import { getcarouselItems } from "./period-carousel.dom";
 import { CarouselMotion } from "./carousel-motion";
@@ -9,12 +9,17 @@ import { CarouselControl } from "./carousel-control";
 
 interface IPeriodCarousel {
   items: ICarouselItem[];
+  activeIndex: number;
+  setActiveIndex: (index: number) => void;
 }
 
-export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
+export const PeriodCarousel = ({
+  items,
+  activeIndex,
+  setActiveIndex,
+}: IPeriodCarousel) => {
   const carouselWrapper = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
   const circlePathRef = useCirclePath({
     svgRef,
     options: { pathId: "circlePath", sourceId: "holder" },
