@@ -3,8 +3,18 @@ import { Events } from "./events";
 import { PeriodCarousel } from "./period-carousel/period-carousel";
 import { YearPeriod } from "./year-period";
 import styles from "./historical-dates.module.scss";
+import historyPeriods from "./assets/history-period.json";
+import { useState } from "react";
 
 export const HistoricalDates = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const getPeriod = () => {
+    const events = historyPeriods.sections[activeIndex].events;
+    const years = events.map((event) => event.year);
+    return { start: Math.min(...years), end: Math.max(...years) };
+  };
+
   return (
     <section style={{ position: "relative" }}>
       <div className={styles.periodWrapper}>
@@ -13,31 +23,18 @@ export const HistoricalDates = () => {
           <br />
           даты
         </h2>
-        <YearPeriod start={2015} end={2022} />
+        <YearPeriod {...getPeriod()} />
         <PeriodCarousel
-          items={[
-            { value: "1", label: "Технологии" },
-            { value: "2", label: "Кино" },
-            { value: "3", label: "Литература" },
-            { value: "4", label: "" },
-            { value: "5", label: "Спорт" },
-            { value: "6", label: "Наука" },
-          ]}
+          items={historyPeriods.sections.map((period, index) => ({
+            value: `${index + 1}`,
+            label: period.title,
+          }))}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
         />
       </div>
       <Divider />
-      <Events
-        events={[
-          {
-            year: 2015,
-            data: "13 сентября — частное солнечное затмение, видимое в Южной Африке и части Антарктиды",
-          },
-          {
-            year: 2016,
-            data: "Телескоп «Хаббл» обнаружил самую удалённую из всех обнаруженных галактик, получившую обозначение GN-z11",
-          },
-        ]}
-      />
+      <Events events={historyPeriods.sections[activeIndex].events} />
     </section>
   );
 };
