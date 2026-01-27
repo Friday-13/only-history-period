@@ -8,6 +8,7 @@ export class CarouselMotion {
   private path: SVGPathElement;
   private wrapProgress = gsap.utils.wrap(0, 1);
   private snap: (value: number) => number;
+  isAnimating = false;
 
   constructor(
     wrapper: HTMLDivElement,
@@ -33,8 +34,6 @@ export class CarouselMotion {
         start: offset,
         end: (i) => offset + i / this.length,
       },
-      // scale: 0.2,
-      // backgroundColor: "#42567a",
     });
   }
 
@@ -60,11 +59,12 @@ export class CarouselMotion {
     );
   }
 
-  private get length() {
+  get length() {
     return this.items.length;
   }
 
   moveCarousel(step: number) {
+    this.isAnimating = true;
     const progress = this.timeLine.progress();
     this.timeLine.progress(
       this.wrapProgress(this.snap(this.timeLine.progress() + step)),
@@ -75,6 +75,9 @@ export class CarouselMotion {
       progress: this.snap(this.timeLine.progress() + step),
       modifiers: {
         progress: this.wrapProgress,
+      },
+      onComplete: () => {
+        this.isAnimating = false;
       },
     });
   }
@@ -97,5 +100,19 @@ export class CarouselMotion {
     const diff = currentIndex - index;
     const step = this.getShortestArc(diff);
     this.moveCarousel(step);
+  }
+
+  moveToPrev(currentIndex: number) {
+    const diff = 1;
+    const step = this.getShortestArc(diff);
+    this.moveCarousel(step);
+    return gsap.utils.wrap(0, this.length)(currentIndex - 1);
+  }
+
+  moveToNext(currentIndex: number) {
+    const diff = -1;
+    const step = this.getShortestArc(diff);
+    this.moveCarousel(step);
+    return gsap.utils.wrap(0, this.length)(currentIndex + 1);
   }
 }

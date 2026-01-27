@@ -25,7 +25,7 @@ export const CarouselItem = (props: ICarouselItemProps) => {
       const label = labelRef.current;
 
       gsap.set(item, {
-        scale: props.isActive ? 1 : 0.2,
+        scale: props.isActive ? 1 : 0.15,
         backgroundColor: props.isActive ? "#f4f5f9" : "#42567a",
       });
 
@@ -56,7 +56,7 @@ export const CarouselItem = (props: ICarouselItemProps) => {
 
     if (!props.isActive) {
       gsap.to(item, {
-        scale: 0.2,
+        scale: 0.15,
         backgroundColor: "#42567a",
         duration: 0.2,
       });

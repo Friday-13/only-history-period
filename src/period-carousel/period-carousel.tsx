@@ -5,6 +5,7 @@ import { useCirclePath } from "./use-circle-path";
 import { getcarouselItems } from "./period-carousel.dom";
 import { CarouselMotion } from "./carousel-motion";
 import { CarouselItem, ICarouselItem } from "./carousel-item";
+import { CarouselControl } from "./carousel-control";
 
 interface IPeriodCarousel {
   items: ICarouselItem[];
@@ -39,37 +40,69 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
   });
 
   return (
-    <div className={styles.carouselWrapper} ref={carouselWrapper}>
-      {items.map((item, ind) => {
-        const carouselItem = (
-          <CarouselItem
-            key={ind}
-            isActive={ind === activeIndex}
-            className={styles.carouselItem}
-            data-carousel-item
-            onClick={() => {
-              carouselMotion.current?.moveToIndex(ind, activeIndex);
-              setActiveIndex(ind);
-            }}
-            value={item.value}
-            label={item.label}
+    <>
+      <div className={styles.carouselWrapper} ref={carouselWrapper}>
+        {items.map((item, ind) => {
+          const carouselItem = (
+            <CarouselItem
+              key={ind}
+              isActive={ind === activeIndex}
+              className={styles.carouselItem}
+              data-carousel-item
+              onClick={() => {
+                carouselMotion.current?.moveToIndex(ind, activeIndex);
+                setActiveIndex(ind);
+              }}
+              value={item.value}
+              label={item.label}
+            />
+          );
+          return carouselItem;
+        })}
+        <svg
+          className={styles.carouselTrajectoryWrapper}
+          viewBox={"0 0 531 531"}
+          ref={svgRef}
+        >
+          <circle
+            className={styles.carouselTrajectory}
+            id="holder"
+            cx="264"
+            cy="264"
+            r="265"
           />
-        );
-        return carouselItem;
-      })}
-      <svg
-        className={styles.carouselTrajectoryWrapper}
-        viewBox={"0 0 531 531"}
-        ref={svgRef}
-      >
-        <circle
-          className={styles.carouselTrajectory}
-          id="holder"
-          cx="264"
-          cy="264"
-          r="265"
-        />
-      </svg>
-    </div>
+        </svg>
+      </div>
+      <div className={styles.carouselControlsWrapper}>
+        <div className={styles.carouselProgress}>
+          {`${activeIndex + 1}`.padStart(2, "0")} /{" "}
+          {`${items.length}`.padStart(2, "0")}
+        </div>
+        <div className={styles.carouselControls}>
+          <CarouselControl
+            dir="prev"
+            isDisable={activeIndex === 0}
+            onClick={() => {
+              if (!carouselMotion.current) return;
+              if (carouselMotion.current.isAnimating) return;
+              if (activeIndex === 0) return;
+              const newActive = carouselMotion.current.moveToPrev(activeIndex);
+              setActiveIndex(newActive);
+            }}
+          />
+          <CarouselControl
+            dir="next"
+            isDisable={activeIndex === items.length - 1}
+            onClick={() => {
+              if (!carouselMotion.current) return;
+              if (carouselMotion.current.isAnimating) return;
+              if (activeIndex === items.length - 1) return;
+              const newActive = carouselMotion.current.moveToNext(activeIndex);
+              setActiveIndex(newActive);
+            }}
+          />
+        </div>
+      </div>
+    </>
   );
 };
