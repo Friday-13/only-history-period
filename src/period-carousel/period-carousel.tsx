@@ -59,15 +59,15 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
       })}
       <svg
         className={styles.carouselTrajectoryWrapper}
-        viewBox={"0 0 302 302"}
+        viewBox={"0 0 531 531"}
         ref={svgRef}
       >
         <circle
           className={styles.carouselTrajectory}
           id="holder"
-          cx="151"
-          cy="151"
-          r="150"
+          cx="264"
+          cy="264"
+          r="265"
         />
       </svg>
     </div>
