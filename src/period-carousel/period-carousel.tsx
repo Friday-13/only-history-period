@@ -1,10 +1,10 @@
-import gsap from "gsap";
 import styles from "./period-carousel.module.scss";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
 import { useCirclePath } from "./use-circle-path";
 import { getcarouselItems } from "./period-carousel.dom";
 import { CarouselMotion } from "./carousel-motion";
+import { CarouselItem } from "./carousel-item";
 
 interface IPeriodCarousel {
   items: string[];
@@ -41,29 +41,19 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
   return (
     <div className={styles.carouselWrapper} ref={carouselWrapper}>
       {items.map((item, ind) => {
-        const tl = gsap.timeline({ paused: true });
         const carouselItem = (
-          <div
+          <CarouselItem
             key={ind}
+            isActive={ind === activeIndex}
             className={styles.carouselItem}
-            ref={(el) => {
-              if (!el) return;
-              tl.to(el, {
-                scale: 1,
-                backgroundColor: "#f4f5f9",
-                duration: 0.3,
-              });
-            }}
             data-carousel-item
             onClick={() => {
               carouselMotion.current?.moveToIndex(ind, activeIndex);
               setActiveIndex(ind);
             }}
-            onMouseEnter={() => tl.play()}
-            onMouseOut={() => tl.reverse()}
           >
             {item}
-          </div>
+          </CarouselItem>
         );
         return carouselItem;
       })}

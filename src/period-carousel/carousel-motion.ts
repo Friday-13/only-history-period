@@ -24,7 +24,7 @@ export class CarouselMotion {
   }
 
   private initCarouseItemPosition() {
-    const offset = -1/ 6;
+    const offset = -1 / 6;
     gsap.set(this.items, {
       motionPath: {
         path: this.path,
