@@ -2,31 +2,9 @@ import gsap from "gsap";
 import styles from "./period-carousel.module.scss";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
-import classNames from "classnames";
 import { useCirclePath } from "./use-circle-path";
 import { getcarouselItems } from "./period-carousel.dom";
-import {
-  initCarouseItemPosition,
-  setCarouselItemsMotion,
-  setCarouselMotion,
-  timeLine,
-} from "./carousel-motion";
-
-const wrapProgress = gsap.utils.wrap(0, 1);
-const snap = gsap.utils.snap(1 / 6);
-
-const moveCarousel = (step: number) => {
-  const progress = timeLine.progress();
-  timeLine.progress(wrapProgress(snap(timeLine.progress() + step)));
-  timeLine.progress(progress);
-
-  gsap.to(timeLine, {
-    progress: snap(timeLine.progress() + step),
-    modifiers: {
-      progress: wrapProgress,
-    },
-  });
-};
+import { CarouselMotion } from "./carousel-motion";
 
 interface IPeriodCarousel {
   items: string[];
@@ -41,6 +19,8 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
     options: { pathId: "circlePath", sourceId: "holder" },
   });
 
+  const carouselMotion = useRef<CarouselMotion | null>(null);
+
   useGSAP(() => {
     if (!carouselWrapper.current) return;
     const carouselItems = getcarouselItems(
@@ -50,28 +30,12 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
 
     if (!carouselItems) return;
     if (!circlePathRef.current) return;
-    initCarouseItemPosition(carouselItems, circlePathRef.current);
 
-    setCarouselMotion(carouselWrapper.current);
-    setCarouselItemsMotion(carouselItems);
-
-    // const wrapTracker = gsap.utils.wrap(0, items.length);
-    // const tracker = { item: activeIndex };
-    //
-    // timeLine.to(
-    //   tracker,
-    //   {
-    //     item: items.length,
-    //     duration: 5,
-    //     ease: "none",
-    //     modifiers: {
-    //       item(value) {
-    //         return wrapTracker(items.length - Math.round(value));
-    //       },
-    //     },
-    //   },
-    //   0,
-    // );
+    carouselMotion.current = new CarouselMotion(
+      carouselWrapper.current,
+      carouselItems,
+      circlePathRef.current,
+    );
   });
 
   return (
@@ -81,16 +45,13 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
         const carouselItem = (
           <div
             key={ind}
-            className={classNames(styles.carouselItem, {
-              [styles.carouselItemActive]: ind === activeIndex,
-            })}
+            className={styles.carouselItem}
             ref={(el) => {
               if (!el) return;
               tl.to(el, {
                 scale: 1,
                 backgroundColor: "#f4f5f9",
                 duration: 0.3,
-                // ease: "back",
               });
             }}
             data-carousel-item
@@ -98,14 +59,14 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
               const diff = activeIndex - ind;
               const itemStep = 1 / items.length;
               if (Math.abs(diff) < items.length / 2) {
-                moveCarousel(diff * itemStep);
+                carouselMotion.current?.moveCarousel(diff * itemStep);
               } else {
                 const amt = items.length - Math.abs(diff);
 
                 if (activeIndex > ind) {
-                  moveCarousel(amt * -itemStep);
+                  carouselMotion.current?.moveCarousel(amt * -itemStep);
                 } else {
-                  moveCarousel(amt * itemStep);
+                  carouselMotion.current?.moveCarousel(amt * itemStep);
                 }
               }
               setActiveIndex(ind);

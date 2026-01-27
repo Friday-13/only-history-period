@@ -1,45 +1,79 @@
 import gsap from "gsap";
 
-const motionDuration = 5;
+export class CarouselMotion {
+  private motionDuration = 5;
+  timeLine = gsap.timeline({ paused: true, reversed: true });
+  private wrapper: HTMLDivElement;
+  private items: NodeListOf<HTMLDivElement>;
+  private path: SVGPathElement;
+  private wrapProgress = gsap.utils.wrap(0, 1);
+  private snap: (value: number) => number;
 
-export const timeLine = gsap.timeline({ paused: true, reversed: true });
+  constructor(
+    wrapper: HTMLDivElement,
+    items: NodeListOf<HTMLDivElement>,
+    path: SVGPathElement,
+  ) {
+    this.wrapper = wrapper;
+    this.items = items;
+    this.path = path;
+    this.snap = gsap.utils.snap(1 / this.length);
+    this.initCarouseItemPosition();
+    this.setCarouselMotion();
+    this.setCarouselItemsMotion();
+  }
 
-export const initCarouseItemPosition = (
-  carouselItems: NodeListOf<HTMLDivElement>,
-  path: SVGPathElement,
-) => {
-  gsap.set(carouselItems, {
-    motionPath: {
-      path: path,
-      align: path,
-      alignOrigin: [0.5, 0.5],
-      end: (i) => (i - 1) / carouselItems.length,
-    },
-    scale: 0.2,
-    backgroundColor: "#42567a",
-  });
-};
+  private initCarouseItemPosition() {
+    gsap.set(this.items, {
+      motionPath: {
+        path: this.path,
+        align: this.path,
+        alignOrigin: [0.5, 0.5],
+        end: (i) => (i - 1) / this.length,
+      },
+      scale: 0.2,
+      backgroundColor: "#42567a",
+    });
+  }
 
-export const setCarouselMotion = (wrapper: HTMLDivElement) => {
-  timeLine.to(wrapper, {
-    rotation: 360,
-    transformOrigin: "center",
-    duration: motionDuration,
-    ease: "none",
-  });
-};
-
-export const setCarouselItemsMotion = (items: NodeListOf<HTMLDivElement>) => {
-  timeLine.to(
-    items,
-    {
-      rotation: "-=360",
+  private setCarouselMotion() {
+    this.timeLine.to(this.wrapper, {
+      rotation: 360,
       transformOrigin: "center",
-      duration: motionDuration,
+      duration: this.motionDuration,
       ease: "none",
-    },
-    0,
-  );
-};
+    });
+  }
 
+  private setCarouselItemsMotion() {
+    this.timeLine.to(
+      this.items,
+      {
+        rotation: "-=360",
+        transformOrigin: "center",
+        duration: this.motionDuration,
+        ease: "none",
+      },
+      0,
+    );
+  }
 
+  private get length() {
+    return this.items.length;
+  }
+
+  moveCarousel(step: number) {
+    const progress = this.timeLine.progress();
+    this.timeLine.progress(
+      this.wrapProgress(this.snap(this.timeLine.progress() + step)),
+    );
+    this.timeLine.progress(progress);
+
+    gsap.to(this.timeLine, {
+      progress: this.snap(this.timeLine.progress() + step),
+      modifiers: {
+        progress: this.wrapProgress,
+      },
+    });
+  }
+}
