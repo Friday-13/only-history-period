@@ -1,8 +1,6 @@
+@use "./breakpoints.module";
+
 .event {
-  /* TODO: remove on swiper */
-
-  width: 166px;
-
   & > h4 {
     margin-bottom: 15px;
   }
@@ -10,4 +8,52 @@
   .data {
     line-height: 1.45;
   }
+}
+
+:global(.swiper-slide-visible) {
+  opacity: 0.4;
+}
+
+:global(.swiper-slide-fully-visible) {
+  opacity: 1;
+}
+
+:global(.swiper-button-next) {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background-image: url("./assets/arrow-right.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px auto;
+  box-shadow: 0 0 15px 0 rgb(56 119 238 / 10%);
+
+  fill: #fff;
+}
+
+:global(.swiper-button-prev) {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background-image: url("./assets/arrow-left.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px auto;
+  box-shadow: 0 0 15px 0 rgb(56 119 238 / 10%);
+
+  fill: #fff;
+}
+
+:global(.swiper-button-next::after) {
+  display: none;
+}
+
+:global(.swiper-button-prev::after) {
+  display: none;
+}
+
+:global(.swiper-button-disabled) {
+  display: none;
 }
