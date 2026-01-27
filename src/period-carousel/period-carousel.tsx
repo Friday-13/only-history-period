@@ -4,10 +4,10 @@ import { useRef, useState } from "react";
 import { useCirclePath } from "./use-circle-path";
 import { getcarouselItems } from "./period-carousel.dom";
 import { CarouselMotion } from "./carousel-motion";
-import { CarouselItem } from "./carousel-item";
+import { CarouselItem, ICarouselItem } from "./carousel-item";
 
 interface IPeriodCarousel {
-  items: string[];
+  items: ICarouselItem[];
 }
 
 export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
@@ -51,9 +51,9 @@ export const PeriodCarousel = ({ items }: IPeriodCarousel) => {
               carouselMotion.current?.moveToIndex(ind, activeIndex);
               setActiveIndex(ind);
             }}
-          >
-            {item}
-          </CarouselItem>
+            value={item.value}
+            label={item.label}
+          />
         );
         return carouselItem;
       })}

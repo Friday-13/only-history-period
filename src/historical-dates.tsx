@@ -25,7 +25,16 @@ export const HistoricalDates = () => {
           },
         ]}
       />
-      <PeriodCarousel items={["1", "2", "3", "4", "5", "6"]} />
+      <PeriodCarousel
+        items={[
+          { value: "1", label: "Технологии" },
+          { value: "2", label: "Кино" },
+          { value: "3", label: "Литература" },
+          { value: "4", label: "" },
+          { value: "5", label: "Спорт" },
+          { value: "6", label: "Наука" },
+        ]}
+      />
     </section>
   );
 };
