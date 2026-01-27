@@ -1,0 +1,27 @@
+.carousel-control {
+  cursor: pointer;
+
+  position: relative;
+
+  width: 50px;
+  height: 50px;
+  border: 1px solid #42567a80;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px auto;
+
+  &__prev {
+    background-image: url("../assets/arrow-left-gray.svg") !important;
+  }
+
+  &__next {
+    background-image: url("../assets/arrow-right-gray.svg") !important;
+  }
+
+  &_disabled {
+    cursor: auto;
+    opacity: 0.5;
+  }
+}
