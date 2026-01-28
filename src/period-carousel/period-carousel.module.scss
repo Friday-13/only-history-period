@@ -17,18 +17,30 @@
 
   &__controls-wrapper {
     position: absolute;
-    bottom: -195px;
-    left: 60px;
+    bottom: -320px;
+    left: 20px;
+
+    @include breakpoints.lg {
+      bottom: -195px;
+      left: 60px;
+    }
   }
 
   &__controls {
     display: flex;
-    gap: 20px;
+    gap: 8px;
+
+    @include breakpoints.lg {
+      gap: 20px;
+    }
   }
 
   &__progress {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-size: 14px;
+    @include breakpoints.lg {
+    margin-bottom: 20px;
+    }
   }
 }
 
