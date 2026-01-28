@@ -7,13 +7,17 @@ export interface ICarouselControl extends HTMLAttributes<HTMLDivElement> {
   isDisable: boolean;
 }
 
-export const CarouselControl = (props: ICarouselControl) => {
+export const CarouselControl = ({
+  dir,
+  isDisable,
+  ...props
+}: ICarouselControl) => {
   return (
     <div
       className={classNames(
         styles.carouselControl,
-        { [`${styles.carouselControlDisabled}`]: props.isDisable },
-        props.dir === "prev"
+        { [`${styles.carouselControlDisabled}`]: isDisable },
+        dir === "prev"
           ? styles.carouselControlPrev
           : styles.carouselControlNext,
       )}

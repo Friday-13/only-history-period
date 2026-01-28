@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { HTMLAttributes, useRef } from "react";
-import styles from "./period-carousel.module.scss";
+import styles from "./carousel-item.module.scss";
 
 export interface ICarouselItem {
   value: string;
@@ -13,7 +13,12 @@ interface ICarouselItemProps
   isActive: boolean;
 }
 
-export const CarouselItem = (props: ICarouselItemProps) => {
+export const CarouselItem = ({
+  isActive,
+  value,
+  label,
+  ...props
+}: ICarouselItemProps) => {
   const itemRef = useRef<HTMLDivElement | null>(null);
   const labelRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,23 +30,23 @@ export const CarouselItem = (props: ICarouselItemProps) => {
       const label = labelRef.current;
 
       gsap.set(item, {
-        scale: props.isActive ? 1 : 0.15,
-        backgroundColor: props.isActive ? "#f4f5f9" : "#42567a",
+        scale: isActive ? 1 : 0.15,
+        backgroundColor: isActive ? "#f4f5f9" : "#42567a",
       });
 
       gsap.set(label, {
-        opacity: props.isActive ? 1 : 0,
-        scaleX: props.isActive ? 1 : 0,
+        opacity: isActive ? 1 : 0,
+        scaleX: isActive ? 1 : 0,
         ease: "power2",
       });
     },
-    { dependencies: [props.isActive] },
+    { dependencies: [isActive] },
   );
 
   const mouseEnter = () => {
     if (!itemRef.current) return;
     const item = itemRef.current;
-    if (!props.isActive) {
+    if (!isActive) {
       gsap.to(item, {
         scale: 1,
         backgroundColor: "#f4f5f9",
@@ -54,7 +59,7 @@ export const CarouselItem = (props: ICarouselItemProps) => {
     if (!itemRef.current) return;
     const item = itemRef.current;
 
-    if (!props.isActive) {
+    if (!isActive) {
       gsap.to(item, {
         scale: 0.15,
         backgroundColor: "#42567a",
@@ -65,14 +70,15 @@ export const CarouselItem = (props: ICarouselItemProps) => {
   return (
     <>
       <div
+        className={styles.carouselItem}
         ref={itemRef}
         onMouseEnter={mouseEnter}
         onMouseLeave={mouseLeave}
         {...props}
       >
-        {props.value}
+        {value}
         <div ref={labelRef} className={styles.carouselLabel}>
-          {props.label}
+          {label}
         </div>
         {props.children}
       </div>
