@@ -16,7 +16,7 @@ export const HistoricalDates = () => {
   };
 
   return (
-    <section style={{ position: "relative" }}>
+    <section className={styles.period}>
       <div className={styles.periodWrapper}>
         <h2>
           Исторические

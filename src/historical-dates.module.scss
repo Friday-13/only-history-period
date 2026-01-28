@@ -1,4 +1,32 @@
 .period {
+  position: relative;
+
+  &::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+
+    width: 1px;
+
+    background-color: #42567A1A;
+  }
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    bottom: 52%;
+    right: 0;
+    left: 0;
+
+    height: 1px;
+
+    background-color: #42567A1A;
+  }
+
   &__wrapper {
     position: relative;
   }
