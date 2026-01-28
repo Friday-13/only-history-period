@@ -10,30 +10,30 @@
     border: 1px solid #42567a1a;
   }
 
-  &::after {
-    content: "";
+  &::after,
+  &::before {
+    display: none;
 
-    position: absolute;
+    @include breakpoints.lg {
+      content: "";
+      position: absolute;
+      display: block;
+      background-color: #42567a1a;
+    }
+  }
+
+  &::after {
     top: 0;
     right: 50%;
     bottom: 0;
-
     width: 1px;
-
-    background-color: #42567a1a;
   }
 
   &::before {
-    content: "";
-
-    position: absolute;
     top: 480px;
     right: 0;
     left: 0;
-
     height: 1px;
-
-    background-color: #42567a1a;
   }
 
   &__wrapper {
