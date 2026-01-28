@@ -1,16 +1,24 @@
+@use "../breakpoints.module";
+
 .carousel-control {
   cursor: pointer;
 
   position: relative;
 
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   border: 1px solid #42567a80;
   border-radius: 50%;
 
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 10px auto;
+  background-size: 6px auto;
+
+  @include breakpoints.lg {
+    width: 50px;
+    height: 50px;
+    background-size: 10px auto;
+  }
 
   &__prev {
     background-image: url("../assets/arrow-left-gray.svg") !important;

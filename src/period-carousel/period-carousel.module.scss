@@ -1,28 +1,51 @@
+@use "../breakpoints.module";
+
 .carousel {
   &__wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -18%);
+    display: none;
 
-    width: 550px;
-    height: 550px;
+    @include breakpoints.lg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -18%);
+
+      display: block;
+
+      width: 550px;
+      height: 550px;
+    }
   }
 
   &__controls-wrapper {
     position: absolute;
-    bottom: -195px;
-    left: 60px;
+    bottom: -325px;
+    width: 100%;
+    padding: 0 20px;
+
+    @include breakpoints.lg {
+      z-index: -2;
+      bottom: -195px;
+      left: 60px;
+    }
   }
 
   &__controls {
     display: flex;
-    gap: 20px;
+    gap: 8px;
+
+    @include breakpoints.lg {
+      gap: 20px;
+    }
   }
 
   &__progress {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-size: 14px;
+
+    @include breakpoints.lg {
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -45,5 +68,36 @@
 
     width: 530px;
     height: 530px;
+  }
+}
+
+.pagination {
+  position: relative;
+  bottom: 20px;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  &__item {
+    cursor: pointer;
+
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+
+    opacity: 0.4;
+    background-color: #42567a;
+
+    &_current {
+      opacity: 1;
+    }
+  }
+
+  @include breakpoints.lg {
+    display: none;
   }
 }

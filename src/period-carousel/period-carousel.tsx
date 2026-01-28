@@ -6,6 +6,7 @@ import { getcarouselItems } from "./period-carousel.dom";
 import { CarouselMotion } from "./carousel-motion";
 import { CarouselItem, ICarouselItem } from "./carousel-item";
 import { CarouselControl } from "./carousel-control";
+import classNames from "classnames";
 
 interface IPeriodCarousel {
   items: ICarouselItem[];
@@ -105,6 +106,17 @@ export const PeriodCarousel = ({
               setActiveIndex(newActive);
             }}
           />
+        </div>
+        <div className={styles.pagination}>
+          {items.map((item, index) => (
+            <div
+              key={`${item.value}-pagination`}
+              className={classNames(styles.paginationItem, {
+                [styles.paginationItemCurrent]: index === activeIndex,
+              })}
+              onClick={() => setActiveIndex(index)}
+            ></div>
+          ))}
         </div>
       </div>
     </>
