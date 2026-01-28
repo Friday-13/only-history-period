@@ -24,9 +24,9 @@
     padding: 0 20px;
 
     @include breakpoints.lg {
-      z-index: -2;
       bottom: -195px;
       left: 60px;
+      width: auto;
     }
   }
 
