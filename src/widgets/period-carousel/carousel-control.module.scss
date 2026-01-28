@@ -1,4 +1,4 @@
-@use "../breakpoints.module";
+@use "shared/styles/breakpoints";
 
 .carousel-control {
   cursor: pointer;
@@ -21,11 +21,11 @@
   }
 
   &__prev {
-    background-image: url("../assets/arrow-left-gray.svg") !important;
+    background-image: url("src/shared/images/icons/arrow-left-gray.svg") !important;
   }
 
   &__next {
-    background-image: url("../assets/arrow-right-gray.svg") !important;
+    background-image: url("src/shared/images/icons/arrow-right-gray.svg") !important;
   }
 
   &_disabled {

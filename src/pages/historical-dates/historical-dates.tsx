@@ -1,16 +1,16 @@
-import { Divider } from "./divider";
-import { Events } from "./events";
-import { PeriodCarousel } from "./period-carousel/period-carousel";
-import { YearPeriod } from "./year-period";
 import styles from "./historical-dates.module.scss";
-import historyPeriods from "./assets/history-period.json";
+import historicalPeriods from "@shared/data/historical-period.json";
 import { useState } from "react";
+import { Divider } from "@shared/ui/divider/divider";
+import { YearPeriod } from "@widgets/year-period/year-period";
+import { Events } from "@widgets/events/events";
+import { PeriodCarousel } from "@widgets/period-carousel/period-carousel";
 
 export const HistoricalDates = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const getPeriod = () => {
-    const events = historyPeriods.sections[activeIndex].events;
+    const events = historicalPeriods.sections[activeIndex].events;
     const years = events.map((event) => event.year);
     return { start: Math.min(...years), end: Math.max(...years) };
   };
@@ -25,7 +25,7 @@ export const HistoricalDates = () => {
         </h2>
         <YearPeriod {...getPeriod()} />
         <PeriodCarousel
-          items={historyPeriods.sections.map((period, index) => ({
+          items={historicalPeriods.sections.map((period, index) => ({
             value: `${index + 1}`,
             label: period.title,
           }))}
@@ -35,7 +35,7 @@ export const HistoricalDates = () => {
       </div>
       <Divider />
       <div className={styles.eventsWrapper}>
-        <Events events={historyPeriods.sections[activeIndex].events} />
+        <Events events={historicalPeriods.sections[activeIndex].events} />
       </div>
     </section>
   );

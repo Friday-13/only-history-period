@@ -1,4 +1,4 @@
-import { HistoricalDates } from "./historical-dates";
+import { HistoricalDates } from "@pages/historical-dates/historical-dates";
 
 export const App = () => {
   return <HistoricalDates />;

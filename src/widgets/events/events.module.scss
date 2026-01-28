@@ -1,4 +1,4 @@
-@use "./breakpoints.module";
+@use "shared/styles/breakpoints";
 
 .event {
   & > h4 {
@@ -23,7 +23,7 @@
   height: 40px;
   border-radius: 50%;
 
-  background-image: url("./assets/arrow-right.svg") !important;
+  background-image: url("src/shared/images/icons/arrow-right.svg") !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px auto;
@@ -37,7 +37,7 @@
   height: 40px;
   border-radius: 50%;
 
-  background-image: url("./assets/arrow-left.svg") !important;
+  background-image: url("src/shared/images/icons/arrow-left.svg") !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px auto;
