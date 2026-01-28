@@ -16,7 +16,7 @@ export const HistoricalDates = () => {
   };
 
   return (
-    <section style={{ position: "relative" }}>
+    <section className={styles.period}>
       <div className={styles.periodWrapper}>
         <h2>
           Исторические
@@ -34,7 +34,9 @@ export const HistoricalDates = () => {
         />
       </div>
       <Divider />
-      <Events events={historyPeriods.sections[activeIndex].events} />
+      <div className={styles.eventsWrapper}>
+        <Events events={historyPeriods.sections[activeIndex].events} />
+      </div>
     </section>
   );
 };

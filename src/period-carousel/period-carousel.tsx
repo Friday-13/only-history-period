@@ -52,7 +52,6 @@ export const PeriodCarousel = ({
             <CarouselItem
               key={ind}
               isActive={ind === activeIndex}
-              className={styles.carouselItem}
               data-carousel-item
               onClick={() => {
                 carouselMotion.current?.moveToIndex(ind, activeIndex);

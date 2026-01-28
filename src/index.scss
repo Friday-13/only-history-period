@@ -96,10 +96,4 @@ img {
 
 section {
   max-width: 1440px;
-
-  @include breakpoints.lg {
-    margin: 0 auto 0 320px;
-    padding: 20px;
-    border: 1px solid #42567a;
-  }
 }

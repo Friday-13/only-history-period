@@ -9,32 +9,9 @@
     height: 550px;
   }
 
-  &__item {
-    position: absolute;
-
-    width: 56px;
-    height: 56px;
-    border: 1px solid #303e5850;
-    border-radius: 50%;
-
-    line-height: 56px;
-    text-align: center;
-
-    background-color: #f4f5f9;
-  }
-
-  &__label {
-    position: absolute;
-    top: 0;
-    left: 80px;
-
-    line-height: 56px;
-    text-align: left;
-  }
-
   &__controls-wrapper {
     position: absolute;
-    bottom: -200px;
+    bottom: -195px;
     left: 60px;
   }
 
