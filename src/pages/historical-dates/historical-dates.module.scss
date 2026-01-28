@@ -1,0 +1,49 @@
+@use "../../shared/styles/breakpoints";
+
+.period {
+  position: relative;
+  height: 1080px;
+
+  @include breakpoints.lg {
+    margin: 0 auto 0 320px;
+    padding: 20px;
+    border: 1px solid #42567a1a;
+  }
+
+  &::after,
+  &::before {
+    display: none;
+
+    @include breakpoints.lg {
+      content: "";
+      position: absolute;
+      display: block;
+      background-color: #42567a1a;
+    }
+  }
+
+  &::after {
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    width: 1px;
+  }
+
+  &::before {
+    top: 480px;
+    right: 0;
+    left: 0;
+    height: 1px;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+}
+
+.events-wrapper {
+  @include breakpoints.lg {
+    position: relative;
+    top: 20px;
+  }
+}

@@ -1,0 +1,28 @@
+@use "../../shared/styles/breakpoints";
+
+.year {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 60px;
+
+  @include breakpoints.xl {
+    position: relative;
+    left: -20px;
+
+    gap: 90px;
+
+    margin-bottom: 230px;
+
+    font-size: 200px;
+    text-align: center;
+  }
+
+  :first-child {
+    color: #5d5fef;
+  }
+
+  :last-child {
+    color: #f178b6;
+  }
+}

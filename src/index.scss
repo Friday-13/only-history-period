@@ -1,0 +1,99 @@
+@use "./shared/styles/reset.module";
+@use "./shared/styles/fonts";
+@use "./shared/styles/breakpoints";
+
+:root {
+  font-family: "PT Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  text-rendering: optimizelegibility;
+
+  font-synthesis: none;
+
+  @include breakpoints.lg {
+    font-size: 20px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+
+  line-height: 1.5;
+  color: #42567a;
+
+  background-color: #f4f5f9;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-style: normal;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+h2 {
+  margin-bottom: 56px;
+  padding-top: 59px;
+  padding-left: 20px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  @include breakpoints.lg {
+    margin-bottom: 50px;
+    padding-top: 145px;
+    padding-left: 60px;
+    font-size: 56px;
+  }
+}
+
+h3 {
+  font-size: 58px;
+  font-weight: 700;
+  color: #3877ee;
+  letter-spacing: -0.02em;
+
+  @include breakpoints.lg {
+    font-size: 200px;
+    text-align: center;
+  }
+}
+
+h4 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #3877ee;
+  text-transform: uppercase;
+
+  @include breakpoints.lg {
+    font-size: 25px;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+}
+
+section {
+  max-width: 1440px;
+}
