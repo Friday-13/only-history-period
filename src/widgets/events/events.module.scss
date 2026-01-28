@@ -19,31 +19,43 @@
 }
 
 :global(.swiper-button-next) {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  display: none;
 
-  background-image: url("src/shared/images/icons/arrow-right.svg") !important;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10px auto;
-  box-shadow: 0 0 15px 0 rgb(56 119 238 / 10%);
+  @include breakpoints.lg {
+    display: block;
 
-  fill: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background-image: url("src/shared/images/icons/arrow-right.svg") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px auto;
+    box-shadow: 0 0 15px 0 rgb(56 119 238 / 10%);
+
+    fill: #fff;
+  }
 }
 
 :global(.swiper-button-prev) {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  display: none;
 
-  background-image: url("src/shared/images/icons/arrow-left.svg") !important;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10px auto;
-  box-shadow: 0 0 15px 0 rgb(56 119 238 / 10%);
+  @include breakpoints.lg {
+    display: block;
 
-  fill: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    background-image: url("src/shared/images/icons/arrow-left.svg") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px auto;
+    box-shadow: 0 0 15px 0 rgb(56 119 238 / 10%);
+
+    fill: #fff;
+  }
 }
 
 :global(.swiper-button-next::after) {
