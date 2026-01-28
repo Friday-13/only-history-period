@@ -1,5 +1,14 @@
+@use "./breakpoints.module";
+
 .period {
   position: relative;
+  height: 1080px;
+
+  @include breakpoints.lg {
+    margin: 0 auto 0 320px;
+    padding: 20px;
+    border: 1px solid #42567a1a;
+  }
 
   &::after {
     content: "";
@@ -11,23 +20,28 @@
 
     width: 1px;
 
-    background-color: #42567A1A;
+    background-color: #42567a1a;
   }
 
   &::before {
     content: "";
 
     position: absolute;
-    bottom: 52%;
+    top: 480px;
     right: 0;
     left: 0;
 
     height: 1px;
 
-    background-color: #42567A1A;
+    background-color: #42567a1a;
   }
 
   &__wrapper {
     position: relative;
   }
+}
+
+.events-wrapper {
+  position: relative;
+  top: 20px;
 }

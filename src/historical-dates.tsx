@@ -34,7 +34,9 @@ export const HistoricalDates = () => {
         />
       </div>
       <Divider />
-      <Events events={historyPeriods.sections[activeIndex].events} />
+      <div className={styles.eventsWrapper}>
+        <Events events={historyPeriods.sections[activeIndex].events} />
+      </div>
     </section>
   );
 };
