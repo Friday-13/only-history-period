@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --fix",
     "format:fix": "prettier --write .",
     "style:fix": "stylelint --fix \"**/*.scss\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "serve:prod": "serve dist"
   },
   "dependencies": {
     "@feature-sliced/cli": "^1.0.0",
@@ -42,6 +43,7 @@
     "prettier": "^3.6.2",
     "sass": "^1.97.3",
     "sass-loader": "^16.0.6",
+    "serve": "^14.2.5",
     "style-loader": "^4.0.0",
     "stylelint": "^16.23.1",
     "stylelint-config-clean-order": "^7.0.0",
