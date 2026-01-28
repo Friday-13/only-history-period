@@ -1,10 +1,10 @@
 import styles from "./historical-dates.module.scss";
 import historicalPeriods from "@shared/data/historical-period.json";
 import { useState } from "react";
-import { Divider } from "@shared/ui/divider/divider";
-import { YearPeriod } from "@widgets/year-period/year-period";
-import { Events } from "@widgets/events/events";
-import { PeriodCarousel } from "@widgets/period-carousel/period-carousel";
+import { Events } from "@widgets/events";
+import { PeriodCarousel } from "@widgets/period-carousel";
+import { YearPeriod } from "@widgets/year-period";
+import { Divider } from "@shared/ui/divider";
 
 export const HistoricalDates = () => {
   const [activeIndex, setActiveIndex] = useState(0);
