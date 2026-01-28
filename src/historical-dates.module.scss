@@ -42,6 +42,8 @@
 }
 
 .events-wrapper {
-  position: relative;
-  top: 20px;
+  @include breakpoints.lg {
+    position: relative;
+    top: 20px;
+  }
 }
